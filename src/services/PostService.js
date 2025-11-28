@@ -12,3 +12,7 @@ export const listPosts = () => {
 export const createPost = (post) => {
   return axios.post(REST_API_BASE_URL, post);
 };
+
+export const deletePost = (postId) => {
+  return axios.delete(`${REST_API_BASE_URL}/${postId}`);
+};

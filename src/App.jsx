@@ -1,6 +1,6 @@
 import React from "react";
 import { useEffect, useState } from "react";
-import { listPosts } from "./services/PostService";
+import { deletePost, listPosts } from "./services/PostService";
 import PostForm from "./components/PostForm"; // Import the new component
 
 function App() {
@@ -21,6 +21,20 @@ function App() {
   useEffect(() => {
     getAllPosts();
   }, []);
+
+  const removePost = (id) => {
+    // 1. Call the API
+    deletePost(id)
+      .then((response) => {
+        // 2. SUCCESS: Filter the list to remove the deleted item
+        // This updates the UI without needing to reload from the backend!
+        setPosts(posts.filter((post) => post.id !== id));
+        console.log("Post deleted successfully");
+      })
+      .catch((error) => {
+        console.error(error);
+      });
+  };
 
   return (
     <div className="min-h-screen bg-gray-900 text-gray-100 font-sans">
@@ -49,6 +63,22 @@ function App() {
               <p className="text-gray-400">
                 {post.content.substring(0, 100)}...
               </p>
+              {/* Buttons Container */}
+              <div className="flex justify-between items-center mt-4">
+                <button className="text-red-500 hover:text-red-400 font-semibold text-sm uppercase tracking-wider">
+                  Read More &rarr;
+                </button>
+
+                {/* DELETE BUTTON */}
+                <button
+                  onClick={() => removePost(post.id)}
+                  className="text-gray-500 hover:text-red-600 font-bold transition duration-300"
+                  title="Delete Post"
+                >
+                  {/* Simple Trash Icon (Using text X for now or SVG) */}
+                  🗑️ DELETE
+                </button>
+              </div>
             </div>
           ))}
         </div>
