@@ -2,6 +2,7 @@ import React from "react";
 import { useEffect, useState } from "react";
 import { deletePost, listPosts } from "./services/PostService";
 import PostForm from "./components/PostForm"; // Import the new component
+import CommentSection from "./components/CommentSection";
 
 function App() {
   const [posts, setPosts] = useState([]);
@@ -10,7 +11,8 @@ function App() {
   const getAllPosts = () => {
     listPosts()
       .then((response) => {
-        setPosts(response.data.content);
+        const data = response.data.content ? response.data.content : response.data;
+        setPosts(data);
       })
       .catch((error) => {
         console.error(error);
@@ -79,6 +81,8 @@ function App() {
                   🗑️ DELETE
                 </button>
               </div>
+
+              <CommentSection postId={post.id} />
             </div>
           ))}
         </div>
