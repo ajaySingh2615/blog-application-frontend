@@ -1,1 +1,71 @@
 @import "tailwindcss";
+
+@import url("https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Merriweather:wght@300;400;700;900&display=swap");
+
+@theme {
+  --color-stranger-red: #ff0000;
+  --color-stranger-red-dim: #8a0000;
+  --color-void-black: #050505;
+  --color-upside-down-blue: #0f172a;
+
+  --font-retro-serif: "Merriweather", serif;
+  --font-terminal-mono: "Courier Prime", monospace;
+
+  --animate-flicker: flicker 3s linear infinite;
+  --animate-float: float 6s ease-in-out infinite;
+}
+
+@keyframes flicker {
+  0%,
+  19.999%,
+  22%,
+  62.999%,
+  64%,
+  64.999%,
+  70%,
+  100% {
+    opacity: 1;
+    text-shadow: 0 0 4px #ff0000, 0 0 10px #ff0000, 0 0 20px #ff0000;
+  }
+  20%,
+  21.999%,
+  63%,
+  63.999%,
+  65%,
+  69.999% {
+    opacity: 0.4;
+    text-shadow: none;
+  }
+}
+
+@keyframes float {
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+  50% {
+    transform: translateY(-10px);
+  }
+}
+
+body {
+  background-color: var(--color-void-black);
+  color: #e5e5e5;
+  font-family: var(--font-terminal-mono);
+  overflow-x: hidden;
+}
+
+/* Custom Scrollbar */
+::-webkit-scrollbar {
+  width: 10px;
+}
+::-webkit-scrollbar-track {
+  background: #1a1a1a;
+}
+::-webkit-scrollbar-thumb {
+  background: #8a0000;
+  border-radius: 5px;
+}
+::-webkit-scrollbar-thumb:hover {
+  background: #ff0000;
+}

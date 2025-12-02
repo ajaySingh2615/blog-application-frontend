@@ -49,78 +49,86 @@ const CommentSection = ({ postId }) => {
   };
 
   return (
-    <div className="mt-4 border-t border-gray-700 pt-4">
+    <div className="mt-6 border-t border-gray-800 pt-4">
       {/* Toggle button */}
       <button
         onClick={loadComments}
-        className="text-gray-400 hover:text-white text-sm underline transition mb-4"
+        className="text-gray-500 hover:text-stranger-red text-xs uppercase tracking-widest transition-colors duration-300 flex items-center gap-2"
       >
-        {showComments ? "Hide Transmissions" : "View Transmissions"}
+        <span>{showComments ? "[-]" : "[+]"}</span>
+        {showComments ? "Close Frequency" : "Intercept Signals"}
       </button>
 
       {/* The Comment Area */}
       {showComments && (
-        <div className="bg-gray-900/50 p-4 rounded-lg animate-fade-in">
+        <div className="mt-4 bg-black/30 p-4 border-l-2 border-stranger-red/30 animate-fade-in">
           {/* CHANGE 3: The Loading Check (Wraps the List) */}
           {loading ? (
-            <p className="text-gray-500 text-sm text-center my-4 animate-pulse">
-              Decrypting signal...
+            <p className="text-stranger-red text-xs font-mono text-center my-4 animate-pulse">
+              Decrypting incoming data...
             </p>
           ) : (
-            <div className="space-y-4 mb-6 max-h-60 overflow-y-auto">
+            <div className="space-y-4 mb-6 max-h-60 overflow-y-auto pr-2 custom-scrollbar">
               {comments.length === 0 && (
-                <p className="text-gray-500 text-sm">No transmissions yet...</p>
+                <p className="text-gray-600 text-xs font-mono">
+                  No signals detected on this frequency...
+                </p>
               )}
 
               {comments.map((comment) => (
                 <div
                   key={comment.id}
-                  className="bg-gray-800 p-3 rounded border border-gray-700"
+                  className="bg-void-black/50 p-3 border-b border-gray-800"
                 >
                   <div className="flex justify-between items-center mb-1">
-                    <span className="text-red-400 font-bold text-sm">
+                    <span className="text-stranger-red font-bold text-xs uppercase tracking-wider">
                       {comment.name}
                     </span>
-                    <span className="text-gray-500 text-xs">
+                    <span className="text-gray-600 text-[10px] font-mono">
                       {comment.email}
                     </span>
                   </div>
-                  <p className="text-gray-300 text-sm">{comment.body}</p>
+                  <p className="text-gray-400 text-sm font-terminal-mono">
+                    {comment.body}
+                  </p>
                 </div>
               ))}
             </div>
           )}
 
           {/* Add Comment Form */}
-          <form onSubmit={handleCommentSubmit} className="space-y-3">
+          <form onSubmit={handleCommentSubmit} className="space-y-3 mt-6">
+            <h4 className="text-gray-500 text-xs uppercase tracking-widest mb-2">
+              Reply to Frequency
+            </h4>
             <input
               type="text"
-              placeholder="Codename (Name)"
-              className="w-full bg-gray-700 text-white text-sm px-3 py-2 rounded focus:outline-none focus:border-red-500 border border-transparent"
+              placeholder="CODENAME (NAME)"
+              className="w-full bg-gray-900/50 text-gray-300 text-xs px-3 py-2 border border-gray-700 focus:outline-none focus:border-stranger-red font-terminal-mono transition-colors"
               value={name}
               onChange={(e) => setName(e.target.value)}
               required
             />
             <input
               type="email"
-              placeholder="Email"
-              className="w-full bg-gray-700 text-white text-sm px-3 py-2 rounded focus:outline-none focus:border-red-500 border border-transparent"
+              placeholder="SECURE EMAIL"
+              className="w-full bg-gray-900/50 text-gray-300 text-xs px-3 py-2 border border-gray-700 focus:outline-none focus:border-stranger-red font-terminal-mono transition-colors"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
               required
             />
             <textarea
-              placeholder="Transmission (Body)"
-              className="w-full bg-gray-700 text-white text-sm px-3 py-2 rounded focus:outline-none focus:border-red-500 border border-transparent h-20"
+              placeholder="ENTER MESSAGE..."
+              className="w-full bg-gray-900/50 text-gray-300 text-xs px-3 py-2 border border-gray-700 focus:outline-none focus:border-stranger-red font-terminal-mono h-16 transition-colors resize-none"
               value={body}
               onChange={(e) => setBody(e.target.value)}
               required
             ></textarea>
             <button
               type="submit"
-              className="w-full bg-red-800 hover:bg-red-700 text-white text-sm font-bold py-2 rounded transition"
+              className="w-full bg-gray-800 hover:bg-stranger-red hover:text-void-black text-gray-300 text-xs font-bold py-2 uppercase tracking-widest transition-all duration-300"
             >
-              Send Transmission
+              Send Reply
             </button>
           </form>
         </div>

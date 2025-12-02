@@ -36,85 +36,92 @@ const PostForm = () => {
 
   return (
     <div className="container mx-auto p-4 max-w-2xl">
-      <div className="bg-gray-800 p-6 rounded-lg border border-red-900/30 mb-10 shadow-lg">
-        <h3 className="text-xl font-bold text-red-500 mb-4 uppercase tracking-widest">
-          New Transmission
-        </h3>
+      <div className="bg-black/80 p-8 rounded-sm border border-stranger-red shadow-[0_0_30px_rgba(255,0,0,0.15)] relative overflow-hidden">
+        {/* Scanline overlay for the form */}
+        <div className="absolute inset-0 bg-[linear-gradient(rgba(18,16,16,0)_50%,rgba(0,0,0,0.25)_50%),linear-gradient(90deg,rgba(255,0,0,0.06),rgba(0,255,0,0.02),rgba(0,0,255,0.06))] z-0 pointer-events-none bg-[length:100%_4px,3px_100%]"></div>
 
-        <form onSubmit={handleSubmit} action="">
-          <div className="mb-4">
-            <label className="block text-gray-400 text-sm font-bold mb-2">
-              Title
-            </label>
-            <input
-              type="text"
-              className={`w-full bg-gray-900 text-gray-100 border ${
-                errors.title ? "border-red-500" : "border-gray-700"
-              } rounded py-2 px-3 focus:outline-none focus:border-red-500 transition`}
-              placeholder="Enter title..."
-              value={title}
-              onChange={(e) => {
-                setTitle(e.target.value);
-                setErrors({ ...errors, title: "" }); // Clear error on change
-              }}
-            />
-            {errors.title && (
-              <p className="text-red-500 text-xs italic mt-1">{errors.title}</p>
-            )}
-          </div>
+        <div className="relative z-10">
+          <h3 className="text-3xl font-retro-serif font-bold text-stranger-red mb-8 uppercase tracking-widest text-center animate-flicker">
+            Initiate Transmission
+          </h3>
 
-          <div className="mb-4">
-            <label className="block text-gray-400 text-sm font-bold mb-2">
-              Author
-            </label>
-            <input
-              type="text"
-              className={`w-full bg-gray-900 text-gray-100 border ${
-                errors.author ? "border-red-500" : "border-gray-700"
-              } rounded py-2 px-3 focus:outline-none focus:border-red-500 transition`}
-              placeholder="Your name..."
-              value={author}
-              onChange={(e) => {
-                setAuthor(e.target.value);
-                setErrors({ ...errors, author: "" }); // Clear error on change
-              }}
-            />
-            {errors.author && (
-              <p className="text-red-500 text-xs italic mt-1">
-                {errors.author}
-              </p>
-            )}
-          </div>
+          <form onSubmit={handleSubmit} action="">
+            <div className="mb-6">
+              <label className="block text-stranger-red text-xs font-bold mb-2 uppercase tracking-widest">
+                Subject (Title)
+              </label>
+              <input
+                type="text"
+                className={`w-full bg-gray-900/50 text-gray-100 border-b-2 ${
+                  errors.title ? "border-stranger-red" : "border-gray-700"
+                } py-3 px-4 focus:outline-none focus:border-stranger-red focus:bg-gray-900 transition-colors font-terminal-mono placeholder-gray-600`}
+                placeholder="ENTER SUBJECT..."
+                value={title}
+                onChange={(e) => {
+                  setTitle(e.target.value);
+                  setErrors({ ...errors, title: "" }); // Clear error on change
+                }}
+              />
+              {errors.title && (
+                <p className="text-stranger-red text-xs mt-2 font-mono">
+                  [ERROR]: {errors.title}
+                </p>
+              )}
+            </div>
 
-          <div className="mb-4">
-            <label className="block text-gray-400 text-sm font-bold mb-2">
-              Message
-            </label>
-            <textarea
-              className={`w-full bg-gray-900 text-gray-100 border ${
-                errors.content ? "border-red-500" : "border-gray-700"
-              } rounded py-2 px-3 focus:outline-none focus:border-red-500 transition h-24`}
-              placeholder="What is happening in Hawkins? (Min 10 chars)"
-              value={content}
-              onChange={(e) => {
-                setContent(e.target.value);
-                setErrors({ ...errors, content: "" }); // Clear error on change
-              }}
-            ></textarea>
-            {errors.content && (
-              <p className="text-red-500 text-xs italic mt-1">
-                {errors.content}
-              </p>
-            )}
-          </div>
+            <div className="mb-6">
+              <label className="block text-stranger-red text-xs font-bold mb-2 uppercase tracking-widest">
+                Agent Name (Author)
+              </label>
+              <input
+                type="text"
+                className={`w-full bg-gray-900/50 text-gray-100 border-b-2 ${
+                  errors.author ? "border-stranger-red" : "border-gray-700"
+                } py-3 px-4 focus:outline-none focus:border-stranger-red focus:bg-gray-900 transition-colors font-terminal-mono placeholder-gray-600`}
+                placeholder="IDENTIFY YOURSELF..."
+                value={author}
+                onChange={(e) => {
+                  setAuthor(e.target.value);
+                  setErrors({ ...errors, author: "" }); // Clear error on change
+                }}
+              />
+              {errors.author && (
+                <p className="text-stranger-red text-xs mt-2 font-mono">
+                  [ERROR]: {errors.author}
+                </p>
+              )}
+            </div>
 
-          <button
-            type="submit"
-            className="bg-red-700 hover:bg-red-600 text-white font-bold py-2 px-4 rounded w-full uppercase tracking-wider transition duration-300"
-          >
-            Send Data
-          </button>
-        </form>
+            <div className="mb-8">
+              <label className="block text-stranger-red text-xs font-bold mb-2 uppercase tracking-widest">
+                Message Content
+              </label>
+              <textarea
+                className={`w-full bg-gray-900/50 text-gray-100 border-b-2 ${
+                  errors.content ? "border-stranger-red" : "border-gray-700"
+                } py-3 px-4 focus:outline-none focus:border-stranger-red focus:bg-gray-900 transition-colors font-terminal-mono h-32 placeholder-gray-600 resize-none`}
+                placeholder="TYPE MESSAGE HERE..."
+                value={content}
+                onChange={(e) => {
+                  setContent(e.target.value);
+                  setErrors({ ...errors, content: "" }); // Clear error on change
+                }}
+              ></textarea>
+              {errors.content && (
+                <p className="text-stranger-red text-xs mt-2 font-mono">
+                  [ERROR]: {errors.content}
+                </p>
+              )}
+            </div>
+
+            <button
+              type="submit"
+              className="w-full bg-stranger-red hover:bg-red-600 text-void-black font-bold py-4 px-4 rounded-sm uppercase tracking-[0.2em] transition duration-300 shadow-[0_0_15px_rgba(255,0,0,0.4)] hover:shadow-[0_0_25px_rgba(255,0,0,0.7)]"
+            >
+              Transmit Data
+            </button>
+          </form>
+        </div>
       </div>
     </div>
   );
